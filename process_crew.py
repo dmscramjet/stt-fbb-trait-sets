@@ -4,9 +4,10 @@ import json
 # how to use this
 #  o You need a crew.json file
 #    https://github.com/stt-datacore/website/blob/master/static/structured/crew.json
-#  o if you want it write all the unique trait set counts to csv files, set write to True
+#  o if you want it write all the unique trait set counts to csv files, set write_csv to True
 #    - these files are semi-colon delimited becase crew have commas in them
 #    - if importing to Google sheets, make sure to choose delimiter as ;
+write_csv = False
 
 # read in the data
 with open('crew.json', 'r', encoding='utf-8') as f:
@@ -96,20 +97,21 @@ for crew in unique_sets:
 # print a CSV with all the data for each crew rarity
 
 # loop over rarities
-for i in range(1,6):
-    f = open(f'{i}star_unique_trait_sets.csv', 'w')
-    f.write('Crew; # Unique Trait Sets\n')
-    counts = {}
-    # loop over crew
-    for crew in allcrew:
-        if crew['max_rarity'] == i:
-            name = crew['name']
-            if name in unique_sets:
-                counts[name] = len(unique_sets[name])
-    # sort the list by # of unique trait sets descending
-    for crew,count in sorted(counts.items(),key=lambda item:item[1],reverse=True):
-        f.write(crew+'; '+str(count)+'\n')
-    f.close()
+if write_csv:
+    for i in range(1,6):
+        f = open(f'{i}star_unique_trait_sets.csv', 'w')
+        f.write('Crew; # Unique Trait Sets\n')
+        counts = {}
+        # loop over crew
+        for crew in allcrew:
+            if crew['max_rarity'] == i:
+                name = crew['name']
+                if name in unique_sets:
+                    counts[name] = len(unique_sets[name])
+        # sort the list by # of unique trait sets descending
+        for crew,count in sorted(counts.items(),key=lambda item:item[1],reverse=True):
+            f.write(crew+'; '+str(count)+'\n')
+        f.close()
 
 # print a summary report
 print('-'*30)

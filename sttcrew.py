@@ -68,9 +68,6 @@ class TraitSetDB:
             self._crewjson = json.load(f)
         
         for crew in self._crewjson:
-            if 'Suit Tendi' in crew['name']:
-                print(crew['name'])
-                print(crew['traits'])
             if self.add_portal_only and not crew['in_portal']:
                 continue
             if crew['max_rarity'] <= self.maxrarity:

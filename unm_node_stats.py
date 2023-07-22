@@ -17,8 +17,17 @@ for node, crew_list in tdb.items():
     ncrew = len(crew_list)
     ntraits = len(node)
     if ntraits == 3:
-        counts_3traits[ntraits] += 1
+        counts_3traits[ncrew] += 1
     elif ntraits == 4:
-        counts_4traits[ntraits] += 1
+        counts_4traits[ncrew] += 1
 
-print(f'# of 3-trait nodes {sum(counts_3traits.values())}')
+n3traits = sum(counts_3traits.values())
+n4traits = sum(counts_4traits.values())
+
+print(f'# of 3-trait nodes: {n3traits}')
+for i in range(2,6):
+    print(f'{counts_3traits[i]*100/n3traits:5.2f}% match {i} portal crew')
+
+print(f'\n# of 4-trait nodes: {n4traits}')
+for i in range(2,6):
+    print(f'{counts_4traits[i]*100/n4traits:5.2f}% match {i} portal crew')

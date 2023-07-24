@@ -21,9 +21,11 @@ for node, crew_list in tdb.items():
     elif ntraits == 4:
         counts_4traits[ncrew] += 1
 
+# total number of 3/4 trait sets
 n3traits = sum(counts_3traits.values())
 n4traits = sum(counts_4traits.values())
 
+# print output
 print(f'# of 3-trait nodes: {n3traits}')
 for i in range(2,6):
     print(f'{counts_3traits[i]*100/n3traits:5.2f}% match {i} portal crew')

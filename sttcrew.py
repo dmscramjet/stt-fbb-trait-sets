@@ -126,12 +126,12 @@ class TraitSetDB:
                             nd = Node((traits[i], traits[j], traits[k], traits[l]))
                             self._add_node_crew(nd, name, create)
 
-    def prune_nodes(self, n:int, is_min:bool=False):
+    def prune_nodes(self, n:int, del_all_greater:bool=False):
         """prune nodes from db by number of matching crew
 
         Args:
             n (int): number of matching crew
-            is_min (bool): prune all nodes with more than (n) matching crew
+            del_all_greater (bool): prune all nodes with more than (n) matching crew
         """
 
         # copy dict since it cannot be modified when iterated over

@@ -137,11 +137,11 @@ class TraitSetDB:
         # copy dict since it cannot be modified when iterated over
         dict_copy = deepcopy(self._node_crew)
         for nd, crew in self.items():
-            if is_min:
+            if del_all_greater:
                 if len(crew) > n:
                     del dict_copy[nd]
             else:
-                if len(crew) == n:
+                if len(crew) < n:
                     del dict_copy[nd]
         
         self._node_crew = dict_copy
@@ -169,6 +169,26 @@ class TraitSetDB:
             self._node_crew.pop(node, None) #is node a string or object? does it matter?
         
         return max_crew, max_nodes
+    
+    def get_solved_node_crew(self, crew_ids:list[int])->list[str]:
+        """Return crew names from the already parsed crew.json for a list
+        of archetype ids that come from the ComboChain parsing player.json
+
+        Args:
+            crew_ids (list[int]): list of crew ids that solved a node
+
+        Returns:
+            list[str]: Names of crew that solved a node
+        """
+        crewlist = []
+        for crew in self._crewjson:
+            if crew['archetype_id'] in crew_ids:
+                crewlist.append(crew['name'])
+        
+        return crewlist
+
+
+
 
         
 
